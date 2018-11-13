@@ -10,12 +10,13 @@ include('conectar.php');
 
 //Preguntamos si el boton del formulario de mas abajo fue presionado para realizar la inserción de datos
 
-if (isset($_POST['guardar']))
+if (isset($_POST['ingresar']))
 	{
 		$rbd=$_POST['rbd'];
 		$escuela=$_POST['nombre'];
 		$comuna=$_POST['comuna'];
 		$direccion=$_POST['direccion'];
+		$clave=$_POST['clave'];
 		$query="select * from colegio where rbd=$rbd";
 		$res =mysql_query($query,$enlace);
 			//Consulto si la escuela existe o no
@@ -30,8 +31,8 @@ if (isset($_POST['guardar']))
 				else // Sino existe, se crea
 			{
 
-			$query="INSERT INTO colegio (rbd, id_comuna, nombre, direccion) VALUES 
-											($rbd, '$comuna', '$escuela', '$direccion')";
+			$query="INSERT INTO colegio (rbd, id_comuna, nombre, direccion, clave) VALUES 
+											($rbd, '$comuna', '$escuela', '$direccion', '$clave')";
 			$resultado = mysql_query($query,$enlace);
 			
 			echo "<script language='javascript'>";
@@ -52,19 +53,19 @@ box-shadow: 8px 8px 6px #808080; border-radius: 10px;">
     <form name="form" action="" method="post" onsubmit="return validar_crear_escuela(this);">
         <table>
     <tr>
-        <td height ="30">RBD Escuela</td><td><input type="text" name="rbd" size="30" style="height:25px; border-radius: 10px;"
-		onkeypress="return solonumeros(event)" /></td>
+    	
+        <td height ="30">RBD Escuela</td>
+        <td><input type="text" name="rbd" size="30" style="height:25px; border-radius: 10px;" onkeypress="return solonumeros(event)" placeholder="Ingrese RBD " /></td>
     </tr>
 	<tr>
-        <td height ="30">Nombre escuela</td><td><input type="text" name="nombre" size="30" style="height:25px; border-radius: 10px;"
-		onkeypress="return sololetras(event)" /></td>
+        <td height ="30">Nombre escuela</td><td><input type="text" name="nombre" size="30" style="height:25px; border-radius: 10px;" onkeypress="return sololetras(event)" placeholder="Ingrese el nombre" class="form-control" /></td>
     </tr>
     <tr>
-        <td height ="30">Dirección</td><td><input type="text" name="direccion" size="30" style="height:25px; border-radius: 10px;" 
-		 /></td>
+        <td height ="30">Dirección</td><td><input type="text" name="direccion"  class="form-control" size="30" style="height:25px; border-radius: 10px;" placeholder="Ingrese la dirección" class="form-control"/></td>
     </tr>
+    <tr>
     <td>Comuna</td>
-    <td><select name="comuna" style="height:25px; border-radius: 10px;width: 240px">
+    <td><select name="comuna" style="height:30px; border-radius: 10px;width: 240px"  class="form-control form-control-sm">
 	        <?php
 			$sqlSelect="select id, nombre_comuna from comuna";
 			$resultSelect =mysql_query($sqlSelect,$enlace);
@@ -76,9 +77,27 @@ box-shadow: 8px 8px 6px #808080; border-radius: 10px;">
             </select></td>
     </tr>
         <p>
+
+    <tr>
+   <td>
+    	
+            <label for="clave">Clave</label>
+    </td>
+    <td>
+    <input type="password" class="form-control" name="clave" placeholder="Ingrese contraseña"
+            style="height:25px; border-radius: 10px;"  >
+        
+    </td>        
+    </tr>
+
 	<tr>
-            <td height ="50"><input type="submit" name="guardar" value="Guardar" style="width:130px;height:25px; border-radius: 10px;"/></td>
-            <td><input type="reset"  name="limpiar" value="Limpiar" style="width:130px;height:25px; border-radius: 10px;"></td>
+        <td height ="50">
+    <button type="submit" value="Ingresar" name="ingresar" class="btn btn-success">Ingresar
+    </button>
+        </td>
+            <td>
+            <button type="reset" value="Limpiar" name="limpiar" class="btn btn-primary">Limpiar</button>	
+            </td>
     </tr></table><p>
              
 </form>

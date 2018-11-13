@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <?php
-
 include('conectar.php');
 ?>
 <script src="valida.js"></script>
@@ -10,6 +9,7 @@ include('conectar.php');
 <body>
 
 <?php
+
 if (isset($_POST['guardar']))
 {
 
@@ -24,29 +24,17 @@ if (isset($_POST['guardar']))
 		echo "alert('Actualización exitosa');";
 		echo "window.location.href='principal.php';";
 		echo "</script>";
-}
-	
-	
 
+}else{
+// Se arma el primer formulario, ya que las condiciones anteriores son negadas.
 
-if (isset($_POST['modificar']))
-{
-	
 	$nfilas=0;
-	$rbd=$_POST['rbd'];
+	$rbd=$_SESSION['rbd'];
 	$query="select * from colegio where rbd=$rbd";
 	$resultado=mysql_query($query,$enlace);
 	$nfilas=mysql_num_rows($resultado);
-	if ($nfilas==0)
-	{
-		echo "<script language='javascript'>";
-		echo "alert('No existe la escuela en la base de datos');";
-		echo "window.location.href='?pagina=boton6';";
-		echo "</script>";
-	}
-	else
-	{
-		$sqlsel="select * from colegio where rbd=$rbd";
+
+	$sqlsel="select * from colegio where rbd=$rbd";
 		$res=mysql_query($sqlsel,$enlace);
 		while ($dato = mysql_fetch_array($res))
 		{
@@ -96,37 +84,8 @@ if (isset($_POST['modificar']))
 			<td><input type="button" value="Volver" name="volver atrás" style="width:130px;height:25px; border-radius: 10px; " onclick="history.back()" /></td>
             </tr></table><p>       
 </form>
-<?php } 
-		
-		
-	}
-}else{
-// Se arma el primer formulario, ya que las condiciones anteriores son negadas.
-?>
-
-
-<p align = "center"><center>
-<form action=""  method="post" onsubmit="return modifica_escuela_1(this);">
-       
-
-<fieldset style="width:500px; border:6px groove #E2F1F2; background:whitesmoke; 
-box-shadow: 8px 8px 6px #808080; border-radius: 10px;"> 
-     <h1>Modificar escuela</h1><br>
-Ingrese el rbd de la escuela
-
-<center>
-<input type="text" name="rbd" maxlength="5" size="23" style="height:25px; border-radius: 10px;" onkeypress="return solonumeros(event)" placeholder="RBD sin guion ni DV"/> 
-
-
-<br><br>
-<input type="submit" name="modificar" value="Modificar" class="btn btn-success"/></td><br><br>
-
-
-
-</center>
-
-</form>
 <?php
+}
 }
 ?> 
 </body>

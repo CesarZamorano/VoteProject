@@ -8,8 +8,8 @@ include('conectar.php');
 
 if (isset($_POST['confirmar']))
 {
-	$n_rbd=$_POST['rbd'];
-	$query = "delete from colegio where rbd='$n_rbd'";
+	$n_rut=$_POST['rut'];
+	$query = "delete from persona where rut='$n_rut'";
 	$resultado = mysql_query($query,$enlace);
 
 		echo "<script language='javascript'>";
@@ -20,9 +20,9 @@ if (isset($_POST['confirmar']))
 
 if (isset($_POST['eliminar']))
 {
-	$rbd=$_POST['rbd'];
+	$rut=$_POST['rut'];
 	$nfilas=0;
-	$query="select * from colegio, comuna where colegio.id_comuna=comuna.id and colegio.rbd='$rbd'";
+	$query="select * from persona where rut='$rut' and id_tipo_usu='1'";
 	$resultado=mysql_query($query,$enlace);
 	$nfilas=mysql_num_rows($resultado);
 
@@ -30,8 +30,8 @@ if (isset($_POST['eliminar']))
 	{
 		//echo $query;
 		echo "<script language='javascript'>";
-		echo "alert('No existe escuela ingresada');";
-		echo "window.location.href='?pagina=boton10';";
+		echo "alert('No existe usuario ingresado');";
+		echo "window.location.href='?pagina=boton9';";
 		echo "</script>";
 	}
 	else
@@ -45,13 +45,13 @@ if (isset($_POST['eliminar']))
 		<fieldset style="width:500px; border:6px groove #E2F1F2; background:whitesmoke; 
 		box-shadow: 8px 8px 6px #808080; border-radius: 10px;">
 		<form action=""  method="post" onsubmit="return validarForm(this);">
-		<?php echo"<center></center><h2>RBD: ".$dato['rbd']. "</h2><br><br>
+		<?php echo"<center></center><h2>RUT: ".$dato['rut']. "</h2><br><br>
 				   <center></center><h2>Nombre: ".$dato['nombre']." </h2><br><br>
-				   <center></center><h2>Direccion: ".$dato['direccion']." </h2><br><br>
-				   <center></center><h2>Comuna: ".$dato['nombre_comuna']." </h2><br><br>
-				   <input type='hidden' name='rbd' value=$rbd>"; ?>
-		<input type="submit" name="confirmar" value="Eliminar" style="width:130px;height:25px; border-radius: 10px;" />
-		<input type="button" value="Volver al menú" name="volver atrás" style="width:130px;height:25px; border-radius: 10px; " onclick="history.back()" />
+				   <input type='hidden' name='rut' value=$rut>"; ?>
+		<input type="submit" name="confirmar" value="Eliminar" class="btn btn-success" />
+		<input type="button" value="Volver al menú" name="volver atrás" class="btn btn-primary" 
+		onclick="history.back()" />
+		<br><br>
         </form>
         </body>
 		
@@ -66,10 +66,10 @@ if (isset($_POST['eliminar']))
 
 <fieldset style="width:500px; border:6px groove #E2F1F2; background:whitesmoke; 
 box-shadow: 8px 8px 6px #808080; border-radius: 10px;">
-<h1>Eliminar escuela</h1><br>
-Ingrese el RBD 
+<h1>Eliminar administrador</h1><br>
+Ingrese el RUT 
 <center>
-<input type="text" name="rbd" maxlength="5" size="23" style="height:25px; border-radius: 10px;" onkeypress="return solonumeros(event)" placeholder="(Ej:12345)"/> 
+<input type="text" name="rut" maxlength="8" size="23" style="height:25px; border-radius: 10px;" onkeypress="return solonumeros(event)" placeholder="(Ej: 12345678)"/> 
 <br><br>
 <input type="submit" name="eliminar" value="Eliminar" class="btn btn-success" /></td><br><br>
 

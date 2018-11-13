@@ -5,15 +5,15 @@
 <?php
 session_start();
 error_reporting(0);
-$rut=$_SESSION['rut'];
-$tipo=$_SESSION['tipo'];
+$rbd=$_SESSION['rbd'];
+$escuela=$_SESSION['escuela'];
 $nombre=utf8_decode($_SESSION['nombre']);
 
-if ($rut == null || $rut == '' || $tipo!=1)
+if ($rbd == null || $rbd == '' || $escuela!="escuela")
 {
 		echo "<script language='javascript'>";
-		echo "alert('Esta cuenta no tiene privilegios de administrador, por favor reingresar');";
-		echo "window.location.href='index.php';";
+		echo "alert('Esta cuenta no tiene privilegios de colegio asociados, por favor reingresar');";
+		echo "window.location.href='login_escuela.php';";
 		echo "</script>";
 }
 else
@@ -25,7 +25,7 @@ else
 echo "<br><center>
 <fieldset style='width:500px; border:6px groove #E2F1F2; background:whitesmoke; 
 box-shadow: 8px 8px 6px #808080; border-radius: 10px;'>";
-echo"Bienvenido ADMINISTRADOR";
+echo"Bienvenido COLEGIO";
 echo"<table align='center'>
 <th width='200px'><strong>$nombre</strong></th>
 <th width='100px'><a href='cerrar_sesion.php'>Cerrar sesión</a></th>";
@@ -35,7 +35,7 @@ echo "<br><br><br>";
 ?> 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Pagina Administrador</title>
+<title>Pagina Colegio</title>
 <link rel="stylesheet" type="text/css" href="estilos.css" media="screen" />
 </head>
 <body style="background-image: url(fondo2.jpg); background-size: 100% 100%; background-attachment: fixed;" >
@@ -47,96 +47,60 @@ echo "<br><br><br>";
 <center>
 </center>
 </div> 
+
+<div>
+  <h1>Votacion electrónica</h1>
+  <br><br>
+  <h3>A continuación, escoja a su candidato</h3>
+</div>
+<!--
 <div id="izquierda">
 	 <div id='flyout_menu'> 
 <ul> 
-   <li><a href='#'><span>CREAR</span></a> 
+   <li><a href='#'><span>APODERADO</span></a> 
       <ul> 
-         <li><a href='?pagina=boton1'><span>ADMINISTRADOR</span></a>
-         <li><a href='?pagina=boton2'><span>ESCUELA</span></a>
-         <li><a href='?pagina=boton3'><span>APODERADO</span></a>
-         <li><a href='?pagina=boton4'><span>VOTACION</span></a>
+         <li><a href='?pagina=boton1'><span>CREAR</span></a>
+         <li><a href='?pagina=boton2'><span>MODIFICAR</span></a>
+         <li><a href='?pagina=boton3'><span>ELIMINAR</span></a>
          </li> 
       </ul> 
    </li> 
-   <li><a href='#'><span>MODIFICAR</span></a>
+   <li><a href='#'><span>DATOS COLEGIO</span></a> 
       <ul> 
-         <li><a href='?pagina=boton5'><span>ADMINISTRADOR</span></a>
-         <li><a href='?pagina=boton6'><span>ESCUELA</span></a>
-         <li><a href='?pagina=boton7'><span>APODERADO</span></a>
-         <li><a href='?pagina=boton8'><span>VOTACION</span></a></li> 
-      </ul>
-   <li><a href='#'><span>ELIMINAR</span></a>
-      <ul> 
-        <li><a href='?pagina=boton9'><span>ADMINISTRADOR</span></a>
-         <li><a href='?pagina=boton10'><span>ESCUELA</span></a>
-         <li><a href='?pagina=boton11'><span>APODERADO</span></a>
-         <li><a href='?pagina=boton12'><span>VOTACION</span></a> 
+         <li><a href='?pagina=boton4'><span>MODIFICAR</span></a>
          </li> 
-      </ul>
-   </li>
-   <li><a href='?pagina=boton13'><span>SELECCIONAR VOTACION</span></a></li>
-   <li><a href='?pagina=boton14'><span>CONSULTAR ESTADO VOTO</span></a></li>
-   <li><a href='?pagina=boton15'><span>CONTACTO</span></a></li> 
-   
+      </ul> 
+   </li> 
+   <li><a href='?pagina=boton5'><span>CONTACTO</span></a>
 </ul> 
 </div> 
 	  </div>
 	  <div id="centro">
 	  
-     <?php
+     <?php/*
 		switch ($recibe_pagina){
-		case "boton1":
-		include ("ingresar_administrador.php");
-		break;
-		case "boton2":
-		include ("ingresar_escuela.php");
-		break;
-		case "boton3":
-		include ("ingresar_persona.php");
-		break;
-		case "boton4":
-		include ("ingresar_votacion.php");
-		break;
-		case "boton5":
-		include ("modificar_administrador.php");
-		break;
-    case "boton6":
-		include ("modificar_escuela.php");
-		break;
-    case "boton7":
-		include ("modificar_persona.php");
-		break;
-    case "boton8":
-    include ("modificar_votacion.php");
+		
+    case "boton1":
+    include ("c_ingresar_persona.php");
     break;
-    case "boton9":
-    include ("eliminar_administrador.php");
+    case "boton2":
+    include ("c_modificar_persona.php");
     break;
-    case "boton10":
-    include ("eliminar_escuela.php");
+    case "boton3":
+    include ("c_eliminar_persona.php");
     break;
-    case "boton11":
-    include ("eliminar_persona.php");
+    case "boton4":
+    include ("c_modificar_escuela.php");
     break;
-    case "boton12":
-    include ("eliminar_votacion.php");
-    break;
-    case "boton13":
-    include ("asignar_votacion.php");
-    break;
-    case "boton14":
-    include ("consultar_votacion.php");
-    break;
-    case "boton15":
+    case "boton5":
     include ("contacto.php");
     break;
     
 		default:
 		include ("contacto.php");
-		}
+		}*/
 	?>
-          </div> 
+          </div>--> 
     <div id="pie">
       <u>Sistema de Votación Electrónica SLEP</u><br><br>
   Dirección: <br> General Oscar Bonilla #6100.<br> Teléfono: 22-8624857<br><br>

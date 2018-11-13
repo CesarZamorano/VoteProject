@@ -21,13 +21,10 @@ if($nfilas>0){
 		if ($datos['id_tipo_usu']=='1'){
 			echo "window.location.href='principal.php';";
 		}
-        if ($datos['id_tipo_usu']=='3'){
-        echo "window.location.href='principal_usuario.php';";
+        if ($datos['id_tipo_usu']=='2'){
+        echo "window.location.href='principal_apoderado.php';";
         }
-        if ($datos['id_tipo_usu']=='2')
-        { 
-			echo "window.location.href='principal_jefe.php';";
-		}
+        
 			echo "</script>"; 
 	}
 	

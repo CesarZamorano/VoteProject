@@ -8,7 +8,7 @@ include('conectar.php');
 
 if (isset($_POST['confirmar']))
 {
-	$n_rbd=$_POST['rbd'];
+	$n_rbd = $_POST['rbd'];
 	$query = "delete from colegio where rbd='$n_rbd'";
 	$resultado = mysql_query($query,$enlace);
 
@@ -66,13 +66,25 @@ if (isset($_POST['eliminar']))
 
 <fieldset style="width:500px; border:6px groove #E2F1F2; background:whitesmoke; 
 box-shadow: 8px 8px 6px #808080; border-radius: 10px;">
-<h1>Eliminar escuela</h1><br>
-Ingrese el RBD 
-<center>
-<input type="text" name="rbd" maxlength="5" size="23" style="height:25px; border-radius: 10px;" onkeypress="return solonumeros(event)" placeholder="(Ej:12345)"/> 
+<h1>Eliminar votacion</h1><br>
+ <TABLE>
+  <tr>
+    <td><select name="eleccion" style="height:25px; border-radius: 10px;width: 240px">
+    	<option value="0">---Seleccione una votación---
+	        <?php
+			$sqlSelect="select * from eleccion";
+			$resultSelect =mysql_query($sqlSelect,$enlace);
+			while ($fila=mysql_fetch_row($resultSelect))
+			{
+				echo"<option value='".$fila['0']."'>".$fila['1'];
+			}
+			?>
+            </select></td>
+    </tr>
+</TABLE>
 <br><br>
-<input type="submit" name="eliminar" value="Eliminar" class="btn btn-success" /></td><br><br>
-
+<input type="submit" name="eliminar" value="Eliminar" class="btn btn-success" /></td>
+<br><br>
 </center>
 
 </form>
